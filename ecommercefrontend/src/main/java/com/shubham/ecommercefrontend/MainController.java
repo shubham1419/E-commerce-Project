@@ -9,7 +9,7 @@ public class MainController {
 	@RequestMapping(value={"/","home","index"})
 	public ModelAndView home()
 	{
-		ModelAndView mv = new ModelAndView("page");
+		ModelAndView mv = new ModelAndView("index");
 		mv.addObject("grettings","Welcome to index page");
 		return mv;
 	}
