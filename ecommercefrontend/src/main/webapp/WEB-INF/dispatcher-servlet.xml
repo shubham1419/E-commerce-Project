@@ -10,6 +10,8 @@
    http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
    <context:component-scan base-package = "com.shubham.ecommercefrontend" />
+   <!-- backend base-package -->
+    <context:component-scan base-package = "com.shubham.EcommerceBackend.daoImpl" />
 
    <bean class = "org.springframework.web.servlet.view.InternalResourceViewResolver">
       <property name = "prefix" value = "/WEB-INF/views/" />

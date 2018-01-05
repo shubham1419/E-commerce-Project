@@ -1,15 +1,19 @@
 $(function(){
 	//for active menu
-	alert(menu);
 	switch(menu){	
 	case 'About Us':
-		$('#about').addclass('active');
+		$( "#about" ).addClass( "active" );
+		//$('.py-5.bg-dark').hide();
 		break;
 	case 'Contact Us':
-		$('#contact').addclass('active');
+		$('#contact').addClass('active');
 		break;
+	case 'All Products':
+		$('#allproducts').addClass('active');
+		break;	
 	default:
-		$('#home').addclass('active');
+		$('#allproducts').addClass('active');
+		$('#a_'+menu).addClass('active');
 		break;
 	}
 });

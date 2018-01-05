@@ -23,8 +23,11 @@
     <!-- Bootstrap core CSS -->
     <link href="${css}/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="${css}/homepage.css" rel="stylesheet">
+    <!-- bootswatch styles for this template -->
+    <link href="${css}/style.css" rel="stylesheet">
+    
+     <!-- Custom styles for this template -->
+    <link href="${css}/home.css" rel="stylesheet">
 
   </head>
 
@@ -34,7 +37,7 @@
 	<%@include file="./shared/navigation.jsp" %>
 
     <!-- Page Content -->
-    
+    <div class="content-height">
     <!-- for home page -->
     <s:if test="${userClickHome== true}">
 	<%@include file="home.jsp" %>
@@ -47,9 +50,15 @@
 	<s:if test="${userClickContact== true}">
 	<%@include file="contact.jsp"%>
 	</s:if>
+	<!-- for Allproducts/categoryproducts page -->
+	<s:if test="${userClickAllProducts== true or userClickCategoryProducts== true}">
+	<%@include file="listProducts.jsp"%>
+	</s:if>
+	</div>	
     <!-- Footer -->
     <%@include file="./shared/footer.jsp" %>
 
+	
     <!-- Bootstrap core JavaScript -->
     <script src="${js}/jquery.min.js"></script>
     <script src="${js}/bootstrap.bundle.min.js"></script>

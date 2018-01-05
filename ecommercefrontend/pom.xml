@@ -8,6 +8,12 @@
 	<name>ecommercefrontend Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
+		<!-- Link my backend project with frontend -->
+		<dependency>
+			<groupId>com.shubham</groupId>
+			<artifactId>EcommerceBackend</artifactId>
+			<version>1.0</version>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
