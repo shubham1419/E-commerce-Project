@@ -7,5 +7,6 @@ import com.shubham.EcommerceBackend.dto.Category;
 public interface CategoryDao {
 	
 	List<Category> list();
+	boolean add(Category category);
 
 }
