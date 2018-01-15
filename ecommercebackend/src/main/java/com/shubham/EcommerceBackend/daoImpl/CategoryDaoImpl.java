@@ -50,7 +50,7 @@ public class CategoryDaoImpl implements CategoryDao {
 	@Transactional
 	public boolean add(Category category) {
 		try {
-			sessionFactory.getCurrentSession().persist(category);
+			sessionFactory.getCurrentSession().save(category);
 			
 			return true;
 		}
@@ -58,6 +58,14 @@ public class CategoryDaoImpl implements CategoryDao {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	@Override
+	@Transactional
+	public void data(Category category) {
+		
+			sessionFactory.getCurrentSession().save(category);			
+		
 	}
 
 }

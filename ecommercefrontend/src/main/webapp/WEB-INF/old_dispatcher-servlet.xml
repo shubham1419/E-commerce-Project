@@ -11,7 +11,7 @@
 
    <context:component-scan base-package = "com.shubham.ecommercefrontend" />
    <!-- backend base-package -->
-    <context:component-scan base-package = "com.shubham.EcommerceBackend.daoImpl" />
+    <context:component-scan base-package = "com.shubham.ecommercebackend" />
 
    <bean class = "org.springframework.web.servlet.view.InternalResourceViewResolver">
       <property name = "prefix" value = "/WEB-INF/views/" />

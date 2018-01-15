@@ -11,8 +11,10 @@
 		<!-- Link my backend project with frontend -->
 		<dependency>
 			<groupId>com.shubham</groupId>
-			<artifactId>EcommerceBackend</artifactId>
-			<version>1.0</version>
+			<artifactId>ecommercebackend</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<!-- <groupId>com.shubham</groupId> <artifactId>EcommerceBackend</artifactId> 
+				<version>1.0</version> -->
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -35,11 +37,11 @@
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/javax.servlet.jsp.jstl/jstl -->
 		<dependency>
-		    <groupId>jstl</groupId>
-		    <artifactId>jstl</artifactId>
-		    <version>1.2</version>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
 		</dependency>
-		
+
 
 	</dependencies>
 	<build>

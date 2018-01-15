@@ -8,5 +8,6 @@ public interface CategoryDao {
 	
 	List<Category> list();
 	boolean add(Category category);
+	void data(Category category);
 
 }

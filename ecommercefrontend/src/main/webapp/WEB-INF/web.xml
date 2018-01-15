@@ -6,12 +6,12 @@
     <display-name>Servlet 3.0 Web Application</display-name>
   
     <!-- for front controller dispatcher servlet -->
-    <servlet>
+<!--     <servlet>
      <servlet-name>dispatcher</servlet-name>
       <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     </servlet>
      <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>/</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping> -->
 </web-app>

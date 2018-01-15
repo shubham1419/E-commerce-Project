@@ -1,69 +1,67 @@
 package com.shubham.EcommerceBackend.config;
 
-import java.beans.PropertyVetoException;
 import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import org.hibernate.SessionFactory;
+import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScans;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.shubham.EcommerceBackend.dto.Category;
+
 
 @Configuration
-@ComponentScan(basePackages= {"com.shubham.EcommerceBackend.dto"})
+@PropertySource("classpath:db.properties")
 @EnableTransactionManagement
+@ComponentScans(value = { 
+      @ComponentScan("com.shubham.EcommerceBackend"),
+      @ComponentScan("com.shubham.EcommerceBackend.dao"),
+      @ComponentScan("com.shubham.EcommerceBackend.dto"),
+      @ComponentScan("com.shubham.EcommerceBackend.daoImpl")
+     /* @ComponentScan("com.boraji.tutorial.spring.service") */
+    })
 public class HibernateConfig {
-	
-	private final static String DATABASE_URL = "dbc:mysql://localhost/ecommerce";
-	private final static String DATABASE_DRIVER = "com.mysql.jdbc.Driver";
-	private final static String DATABASE_DIALECT = "org.hibernate.dialect.MySQLDialect";
-	private final static String DATABASE_USERNAME = "root";
-	private final static String DATABASE_PASSWORD = "";
 
-	//Data source
-	@Bean
-	public DataSource getDataSource() throws PropertyVetoException
-	{
-		ComboPooledDataSource datasource = new ComboPooledDataSource(); 
-		//database connection information
-		datasource.setDriverClass(DATABASE_DRIVER);
-		datasource.setJdbcUrl( DATABASE_URL ); 
-		datasource.setUser(DATABASE_USERNAME); 
-		datasource.setPassword(DATABASE_PASSWORD);
-				
-		return datasource;		
-	}
-	
-	//session factory
-	@Bean 
-	public SessionFactory getSessionFactory(DataSource datasource)
-	{
-		LocalSessionFactoryBuilder builder = new LocalSessionFactoryBuilder(datasource);
-		builder.addProperties(getHibernateProperties());
-		builder.scanPackages("com.shubham.EcommerceBackend.dto");
-		return builder.buildSessionFactory();
-	}
+   @Autowired
+   private Environment env;
 
-	//all hibernate properties return here
-	private Properties getHibernateProperties() {
-		Properties property = new Properties();
-		property.put("hibernate.dialect",DATABASE_DIALECT);
-		property.put("hibernate.show_sql","true");
-		property.put("hibernate.format_sql","true");
-		return property;
-	}
-	
-	//for transaction management
-	@Bean 
-	public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory)
-	{
-		HibernateTransactionManager transactionManager = new HibernateTransactionManager(sessionFactory);
-		return transactionManager;
-	}
+   @Bean
+   public DataSource getDataSource() {
+      BasicDataSource dataSource = new BasicDataSource();
+      dataSource.setDriverClassName(env.getProperty("db.driver"));
+      dataSource.setUrl(env.getProperty("db.url"));
+      dataSource.setUsername(env.getProperty("db.username"));
+      dataSource.setPassword(env.getProperty("db.password"));
+      return dataSource;
+   }
+
+   @Bean
+   public LocalSessionFactoryBean getSessionFactory() {
+      LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
+      factoryBean.setDataSource(getDataSource());
+      
+      Properties props=new Properties();
+      props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
+      props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+
+      factoryBean.setHibernateProperties(props);
+      factoryBean.setAnnotatedClasses(Category.class);
+      return factoryBean;
+   }
+
+   @Bean
+   public HibernateTransactionManager getTransactionManager() {
+      HibernateTransactionManager transactionManager = new HibernateTransactionManager();
+      transactionManager.setSessionFactory(getSessionFactory().getObject());
+      return transactionManager;
+   }
 }
