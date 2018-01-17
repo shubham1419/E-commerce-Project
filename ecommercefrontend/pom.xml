@@ -10,11 +10,11 @@
 	<dependencies>
 		<!-- Link my backend project with frontend -->
 		<dependency>
-			<groupId>com.shubham</groupId>
+		 	<groupId>com.shubham</groupId>
 			<artifactId>ecommercebackend</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<!-- <groupId>com.shubham</groupId> <artifactId>EcommerceBackend</artifactId> 
-				<version>1.0</version> -->
+			<version>0.0.1-SNAPSHOT</version> 
+			<!--  <groupId>com.shubham</groupId> <artifactId>EcommerceBackend</artifactId> 
+				<version>1.0</version> --> 
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
