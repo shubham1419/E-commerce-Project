@@ -6,6 +6,10 @@
 body {
   padding-top: 54px;
 }
+.prd-img{
+	width:100px;
+	height:100px;
+}
 .content-height{ min-height:650px;}
 /*media start */
 @media (min-width: 320px) and (max-width: 340px) {

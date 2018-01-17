@@ -7,12 +7,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.shubham.ecommercebackend.dao.CategoryDao;
+import com.shubham.ecommercebackend.dao.ProductDao;
+import com.shubham.ecommercebackend.dto.Category;
+import com.shubham.ecommercebackend.dto.Product;
 
 @Controller
 public class MainController {
 	
 	@Autowired 
 	private CategoryDao categoryDao;
+	
+	@Autowired 
+	private ProductDao productDao;
 	
 	@RequestMapping(value={"/","home","index"})
 	public ModelAndView home()
@@ -52,19 +58,42 @@ public class MainController {
 		return mv;
 	}
 	
-	@RequestMapping(value={"/all/{name}/products"})
-	public ModelAndView categoryProducts(@PathVariable("name") String name)
+	@RequestMapping(value={"/all/{id}/products"})
+	public ModelAndView categoryProducts(@PathVariable("id") int id)
 	{
 		
 		ModelAndView mv = new ModelAndView("index");
-		mv.addObject("title",name);
+		/*get single category name by id */
+		Category category = null;
+		category = categoryDao.get(id);		
+		mv.addObject("title",category.getName());
 		/*for passing our list of categories*/
 		mv.addObject("allCategories",categoryDao.list());
 		/*for passing single category object*/
-		mv.addObject("category",name);
+		mv.addObject("category",category);
 		mv.addObject("userClickCategoryProducts",true);
 		return mv;
 	}
+	
+	@RequestMapping(value={"/show/{id}/products"})
+	public ModelAndView showSingleProduct(@PathVariable("id") int id)
+	{
+		
+		ModelAndView mv = new ModelAndView("index");		
+		Product product = productDao.get(id);
+		
+		/*update view count */
+		product.setViews(product.getViews() + 1);
+		productDao.update(product);
+		
+		/*title of product*/
+		mv.addObject("title",product.getName());
+		/*for passing single product object*/
+		mv.addObject("product",product);
+		mv.addObject("userClickShowProduct",true);
+		return mv;
+	}
+	
 	
 	//difference in reqparam & pathvar
 	//by using RequestParam
