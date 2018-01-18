@@ -1,5 +1,7 @@
 package com.shubham.ecommercefrontend;
 
+import javax.servlet.ServletRegistration;
+
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class FrontCotroller extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -21,5 +23,11 @@ public class FrontCotroller extends AbstractAnnotationConfigDispatcherServletIni
 		// TODO Auto-generated method stub
 		return new String[] {"/"};
 	}
+	
+	 @Override
+	    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+	        boolean done = registration.setInitParameter("throwExceptionIfNoHandlerFound", "true"); // -> true
+	        if(!done) throw new RuntimeException();
+	    }
 
 }
