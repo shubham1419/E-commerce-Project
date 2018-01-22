@@ -116,8 +116,18 @@ $(function(){
 			
 		});
 		}
-	
+	// dissimissing alert message
 
-	
+	var $alert =$(".alert");
+
+	if($alert.lenght)
+		console.log("in table working");
+		{
+			setTimeout(
+				function(){
+					$alert.fadeOut("slow");
+				}	
+					,2000)
+		}
 	
 });
