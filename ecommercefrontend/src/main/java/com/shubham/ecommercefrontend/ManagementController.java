@@ -2,7 +2,7 @@ package com.shubham.ecommercefrontend;
 
 import java.util.List;
 
-//import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -21,7 +21,7 @@ import com.shubham.ecommercebackend.dao.CategoryDao;
 import com.shubham.ecommercebackend.dao.ProductDao;
 import com.shubham.ecommercebackend.dto.Category;
 import com.shubham.ecommercebackend.dto.Product;
-import com.shubham.ecommercefrontend.util.FileUploadUtility;
+import com.shubham.ecommercefrontend.validate.ProductValidator;
 
 @Controller
 @RequestMapping("/manage")
@@ -59,7 +59,10 @@ public class ManagementController {
 	}
 	
 	@RequestMapping(value="/products", method=RequestMethod.POST )
-	public String handleProductSubmission(@Valid @ModelAttribute("product") Product mProduct, BindingResult results, Model model) {
+	public String handleProductSubmission(@Valid @ModelAttribute("product") Product mProduct, BindingResult results, Model model, HttpServletRequest request) {
+		
+		new ProductValidator().validate(mProduct,results);
+		
 		//if errors
 		if(results.hasErrors())
 		{
