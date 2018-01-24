@@ -103,6 +103,16 @@ public class MainController {
 	}
 	
 	
+	/*for form check*/
+	@RequestMapping(value={"/form"})
+	public ModelAndView form()
+	{
+		ModelAndView mv = new ModelAndView("index");
+		mv.addObject("title","FOrm");
+		mv.addObject("userClickForm",true);
+		return mv;
+	}
+	
 	//difference in reqparam & pathvar
 	//by using RequestParam
 	/*@RequestMapping("/test")

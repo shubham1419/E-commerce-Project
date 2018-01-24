@@ -38,7 +38,7 @@ public class FrontCotroller extends AbstractAnnotationConfigDispatcherServletIni
 	        if(!done) throw new RuntimeException();
 	    }
 	 
-	 @Override
+	/* @Override
 	    public void onStartup(ServletContext sc) throws ServletException {
 	         
 	        MultipartConfigElement multipartConfigElement = new MultipartConfigElement(TMP_FOLDER, 
@@ -46,5 +46,5 @@ public class FrontCotroller extends AbstractAnnotationConfigDispatcherServletIni
 	         
 	        appServlet.setMultipartConfig(multipartConfigElement);
 	    }
-
+*/
 }

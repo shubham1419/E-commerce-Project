@@ -18,6 +18,13 @@ public class JsonController {
 	@Autowired
 	ProductDao productDao;
 	
+	@RequestMapping("admin/all/products")
+	@ResponseBody
+	public List<Product> getAllProductsForAdmin()
+	{
+		return productDao.list();
+	}
+	
 	@RequestMapping("/all/products")
 	@ResponseBody
 	public List<Product> getAllProducts()

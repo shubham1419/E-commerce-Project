@@ -20,7 +20,7 @@ public class ProductValidator implements Validator {
 		
 		if(product.getFile()== null || 	product.getFile().getOriginalFilename().equals(""))
 		{
-			errors.reject("file",null,"Please select an imahge!..");
+			errors.reject("file",null,"Please select an image!..");
 			return;
 		}
 		

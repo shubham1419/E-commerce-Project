@@ -12,14 +12,17 @@
 		</div>
 	</s:if>
 	<div class="row">
-		<div class="card bg-light text-dark">
+		<div classiv class="card bg-light text-dark">
 			<div class="card-header">
 				<h3>Manage Products</h3>
 			</div>
 			<div class="card-body">
-				<sf:form class="form-horizontal" modelAttribute="product"
+<%-- 				<sf:form class="form-horizontal" modelAttribute="product"
 					action="${contextRoot}/manage/products" method="POST"
-					enctype="multipart/form-data">
+					enctype="multipart/form-data"> --%>
+					
+<sf:form class="form-horizontal" modelAttribute="product" action="${contextRoot}/manage/products" method="POST"	>
+					
 
 					<div class="form-group">
 						<label class="control-label col-md-4" for="name">Enter
@@ -71,7 +74,7 @@
 						</div>
 					</div>
 
-					<div class="form-group">
+					<%-- <div class="form-group">
 						<label class="control-label col-md-4" for="file">Upload
 							Image </label>
 						<div class="col-md-8">
@@ -79,7 +82,7 @@
 							<sf:errors path="file" cssClass="help-block" element="em" />
 						</div>
 					</div>
-
+ --%>
 					<div class="form-group">
 						<label class="control-label col-md-4" for="catedoryId">Select
 							Category: </label>
@@ -111,4 +114,49 @@
 			</div>
 		</div>
 	</div>
+	
+	 <div class="row">
+	 	<div class="col-md-12">
+	 	<h3>Avalable Products</h3>
+	 	<hr/>
+	 	</div>
+	 	
+	 	<div class="col-md-12">
+	 		<div style="overflow:auto">
+	 		
+	 		<table id="adminProductsTable" class="table table-condensed table-bordered">
+							
+				<thead>					
+					<tr>					
+						<th>Id</th>
+						<th>&#160;</th>
+						<th>Name</th>
+						<th>Brand</th>
+						<th>Qty. Avail</th>
+						<th>Unit Price</th>
+						<th>Activate</th>				
+						<th>Edit</th>
+					</tr>					
+				</thead>
+				
+				<tfoot>
+					<tr>					
+						<th>Id</th>
+						<th>&#160;</th>
+						<th>Name</th>
+						<th>Brand</th>
+						<th>Qty. Avail</th>
+						<th>Unit Price</th>
+						<th>Activate</th>				
+						<th>Edit</th>
+					</tr>									
+				</tfoot>
+				
+							
+			</table>
+	 		
+	 		</div>
+	 			
+	 	</div>
+	 </div>
 </div>

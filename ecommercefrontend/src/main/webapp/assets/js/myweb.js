@@ -129,5 +129,141 @@ $(function(){
 				}	
 					,2000)
 		}
+		
+		
+	//bootbox for activate/deactivate product by admin
+		
+
+		// data table for admin (all products)
+
+		var $adminProductTable=$('#adminProductsTable');
+		// execute if table is exist
+		
+		if($adminProductTable.length)
+			{
+			
+			
+			var jsonUrl = window.contextRoot +'/json/data/admin/all/products';
+			
+			//console.log("in table working");
+			$adminProductTable.DataTable({
+				lengthMenu:[[5,10,20,-1],['5 Products','10 Products','20 Products','All Products']],
+				pageLength:10,
+				ajax: {
+					url: jsonUrl,
+					dataSrc: ''	
+				},
+				columns: [
+					{
+						data:'id'
+					},
+										
+					{
+						data: 'code',
+						mRender: function(data,type,row)
+						{
+							return '<img src ="'+contextRoot+'/resources/images/'+data+'.jpg" class="img adminDataTableImg">';
+						}
+					},
+					{
+						data: 'name'
+					},
+					{
+						data: 'brand'
+					},
+					{
+						data: 'quantity',
+						mRender: function(data, type, row) 
+						{
+							if(data<1){
+								return '<span style="color:red">Out of Stock!</span>';
+							}
+							return data;
+						}
+						
+					},
+					{
+						data: 'unitPrice',
+						mRender: function(data,type,row)
+						{
+							return '&#8377; ' +data	
+						}
+					},
+					{
+						data: 'active',
+						bSortable:false,
+						mRender: function(data,type,row)
+						{
+							var str='';
+							
+							str+= '<label class="switch">';
+							if(data)
+								{
+								str+= '<input type="checkbox" checked="checked" value="'+row.id+'" />';
+
+								}
+							else
+								{
+								str+= '<input type="checkbox" value="'+row.id+'" />';
+								}
+							str+= '<div class="slider round"></div>	</label>';
+							return str;
+						}
+
+					},
+					{
+						data:'id',
+						bSortable:false,
+						mRender: function(data,type,row)
+						{
+							var str='';
+							str+= '<a href="${contextRoot}/manage/'+data+'/product" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>';
+							return str;
+						}	
+						
+					}
+				],
+				initComplete: function()
+				{
+					var api = this.api();
+					api.$('.switch input[type="checkbox"]').on('change',function(){
+						var checkbox = $(this);
+						var checked = checkbox.prop('checked');
+						var msg = (checked)?"Do you want to activate the product?":"Do you want to deactivate the product?";
+						var value = checkbox.prop('value');
+						bootbox.confirm({
+							size:'medium',
+							title:'Product Activation & Deactivation',
+							message:msg,
+							callback:function(confirmed){
+								
+								if(confirmed)
+									{
+									console.log(value);
+									bootbox.alert({
+										size:'medium',
+										title:'Information',
+										message:"You are performing operation on " +value
+									});
+									}
+								else
+								{
+									checkbox.prop('checked', !checked);
+								}
+							}
+							
+							
+						});
+						
+						
+						
+					});
+					
+				}
+				
+				
+				
+			});
+			}
 	
 });

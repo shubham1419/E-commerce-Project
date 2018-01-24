@@ -35,7 +35,7 @@ public class ManagementController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ManagementController.class);
 	
-	@RequestMapping("/products")
+	@RequestMapping(value="/products", method=RequestMethod.GET)
 	public ModelAndView showManageProducts(@RequestParam(name="operation", required= false) String operation)
 	{
 		ModelAndView mv= new ModelAndView("index");
@@ -61,7 +61,7 @@ public class ManagementController {
 	@RequestMapping(value="/products", method=RequestMethod.POST )
 	public String handleProductSubmission(@Valid @ModelAttribute("product") Product mProduct, BindingResult results, Model model, HttpServletRequest request) {
 		
-		new ProductValidator().validate(mProduct,results);
+		//new ProductValidator().validate(mProduct,results);
 		
 		//if errors
 		if(results.hasErrors())
