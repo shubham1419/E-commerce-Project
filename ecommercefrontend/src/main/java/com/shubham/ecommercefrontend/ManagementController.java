@@ -12,16 +12,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.shubham.ecommercebackend.dao.CategoryDao;
 import com.shubham.ecommercebackend.dao.ProductDao;
 import com.shubham.ecommercebackend.dto.Category;
 import com.shubham.ecommercebackend.dto.Product;
-import com.shubham.ecommercefrontend.validate.ProductValidator;
 
 @Controller
 @RequestMapping("/manage")
@@ -53,16 +54,52 @@ public class ManagementController {
 				mv.addObject("message", "Product Added Successfully!..");
 				mv.addObject("mclass", "success");
 			}
+			if(operation.equals("update"))
+			{
+				mv.addObject("message", "Product Updated Successfully!..");
+				mv.addObject("mclass", "success");
+			}
+			if(operation.equals("category"))
+			{
+				mv.addObject("message", "Category Added Successfully!..");
+				mv.addObject("mclass", "success");
+			}
 		}
 		return mv;
 		
 	}
 	
+	@RequestMapping(value="/{id}/product", method=RequestMethod.GET)
+	public ModelAndView showEditProduct(@PathVariable int id)
+	{
+		ModelAndView mv= new ModelAndView("index");
+		mv.addObject("userClickManageProduct", true);
+		mv.addObject("title", "Manage Products");
+		//fetch product from db
+		Product nProduct = productDao.get(id);
+		//to set the fethced product
+		mv.addObject("product",nProduct);
+		
+		return mv;
+		
+	}
+	
 	@RequestMapping(value="/products", method=RequestMethod.POST )
-	public String handleProductSubmission(@Valid @ModelAttribute("product") Product mProduct, BindingResult results, Model model, HttpServletRequest request) {
+	public String handleProductSubmission(@Valid @ModelAttribute("product") Product mProduct, BindingResult results, Model model, HttpServletRequest request)
+	{
 		
-		//new ProductValidator().validate(mProduct,results);
 		
+		/*if(mProduct.getId()== 0)
+		{
+			new ProductValidator().validate(mProduct,results);
+		}
+		else
+		{
+			if(!mProduct.getFile().getOriginalFilename().equals(""))
+			{
+				new ProductValidator().validate(mProduct,results);
+			}
+		}*/
 		//if errors
 		if(results.hasErrors())
 		{
@@ -74,15 +111,45 @@ public class ManagementController {
 		}
 		
 		logger.info(mProduct.toString());
-		// to create new product
-		productDao.add(mProduct);	
 		
+		// to create new product
+		if(mProduct.getId()== 0)
+		{
+			productDao.add(mProduct);	
+			return "redirect:/manage/products?operation=product";
+		}
+		else
+		{
+			productDao.update(mProduct);
+			return "redirect:/manage/products?operation=update";
+		}
 		/*if(!mProduct.getFile().getOriginalFilename().equals(""))
 		{
 			FileUploadUtility.uploadFile(request, mProduct.getFile(), mProduct.getCode());
 		}*/
-		return "redirect:/manage/products?operation=product";
+		
 	}
+	@RequestMapping(value="/product/{id}/activation", method=RequestMethod.POST )
+	@ResponseBody
+	public String handleProductActivation(@PathVariable int id) {
+		
+		//fetch data from db
+		Product product = productDao.get(id);
+		boolean isActive = product.isActive();
+		product.setActive(!product.isActive());
+		productDao.update(product);
+		return (isActive)?"You have successfully deactivated the product with id" + product.getId():"You have successfully activated the product with id" + product.getId();
+	}
+	
+	//for new category submission by admin
+	@RequestMapping(value="/category", method= RequestMethod.POST)
+	public String handleCategorySubmission(@ModelAttribute Category category)
+	{
+		//add new category by admin
+		categoryDao.add(category);
+		return "redirect:/manage/products?operation=category";
+	}
+	
 	
 	/*for all method catgories*/
 	@ModelAttribute("categories")
@@ -91,8 +158,11 @@ public class ManagementController {
 		return categoryDao.list();
 	}
 	
-	
-	
+	@ModelAttribute("category")
+	public Category  getCategory()
+	{
+		return new Category();
+	}
 	
 	
 	

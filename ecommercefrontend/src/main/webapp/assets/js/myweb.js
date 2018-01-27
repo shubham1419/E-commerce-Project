@@ -217,7 +217,7 @@ $(function(){
 						mRender: function(data,type,row)
 						{
 							var str='';
-							str+= '<a href="${contextRoot}/manage/'+data+'/product" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>';
+							str+= '<a href="'+window.contextRoot+'/manage/'+data+'/product" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>';
 							return str;
 						}	
 						
@@ -240,11 +240,15 @@ $(function(){
 								if(confirmed)
 									{
 									console.log(value);
-									bootbox.alert({
-										size:'medium',
-										title:'Information',
-										message:"You are performing operation on " +value
+									var activationUrl = window.contextRoot + '/manage/product/' + value + '/activation';
+									$.post(activationUrl, function(data){
+										bootbox.alert({
+											size:'medium',
+											title:'Information',
+											message:data
+										});
 									});
+									
 									}
 								else
 								{

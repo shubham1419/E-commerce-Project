@@ -94,6 +94,12 @@
 
 							<sf:select class="form-control" id="categoryId" path="categoryId"
 								items="${categories}" itemLabel="name" itemValue="id" />
+								<s:if test="${product.id == 0}">	
+									<div class="text-right">
+									<br/>
+									<button type="button" data-toggle="modal" data-target="#myCategoryModel" class="btn btn-outline- btn-sm">Add Category</button>
+									</div>
+								</s:if>
 						</div>
 					</div>
 
@@ -159,4 +165,51 @@
 	 			
 	 	</div>
 	 </div>
+	<div class="row">
+	
+		<div class="modal fade" id="myCategoryModel">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Add New Category</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+        	<sf:form modelAttribute="category" id="categoryForm" class="form-horizontal" action="${contextRoot}/manage/category" method= "POST">
+        		<div class="form-group">
+        			<label for="category_name" class="control-label col-md-4">Category Name</label> 
+        			<div class="col-md-8">
+        			<sf:input type="text" path="name" id="category_name" placeholder="Enter Category Name" />
+        			</div>
+        		</div>
+        		
+        		<div class="form-group">
+        			<label for="category_description" class="control-label col-md-4">Category Description</label> 
+        			<div class="col-md-8">
+        			<sf:textarea path="description" cols="" rows="4" id="category_description" placeholder="Enter Category Description"></sf:textarea>
+        			</div>
+        		</div>
+        		<div class="form-group">
+        			<div class="col-md-offset-4 col-md-8">
+						<input type="submit" value ="Add Category" class="btn btn-primary">
+        			</div>
+        		</div>
+        		
+        	</sf:form>  
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+	
+	</div>
 </div>
