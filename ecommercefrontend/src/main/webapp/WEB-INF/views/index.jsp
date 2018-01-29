@@ -91,7 +91,7 @@
      <script src="${js}/bootbox.min.js"></script>
      
        <!--Form Validation script -->
-    <script src="${js}/jquery.validate.min.js"></script>
+    <script src="${js}/jquery.validate.js"></script>
     
     <!-- my custom js -->
      <script src="${js}/myweb.js"></script>
