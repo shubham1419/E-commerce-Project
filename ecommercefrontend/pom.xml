@@ -10,11 +10,11 @@
 	<dependencies>
 		<!-- Link my backend project with frontend -->
 		<dependency>
-		 	<groupId>com.shubham</groupId>
+			<groupId>com.shubham</groupId>
 			<artifactId>ecommercebackend</artifactId>
-			<version>0.0.1-SNAPSHOT</version> 
-			<!--  <groupId>com.shubham</groupId> <artifactId>EcommerceBackend</artifactId> 
-				<version>1.0</version> --> 
+			<version>0.0.1-SNAPSHOT</version>
+			<!-- <groupId>com.shubham</groupId> <artifactId>EcommerceBackend</artifactId> 
+				<version>1.0</version> -->
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -29,24 +29,24 @@
 			<version>8.0</version>
 			<scope>provided</scope>
 		</dependency>
-<dependency>
-    <groupId>javax.servlet</groupId>
-    <artifactId>javax.servlet-api</artifactId>
-    <version>3.1.0</version>
-    <scope>provided</scope>
-</dependency>
-	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-core</artifactId>
-		<version>5.0.0.RELEASE</version>
-		<exclusions>
-			<exclusion>
-				<groupId>commons-logging</groupId>
-				<artifactId>commons-logging</artifactId>
-			</exclusion>
-		</exclusions>
-	</dependency>
-		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>5.0.0.RELEASE</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -58,6 +58,13 @@
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
+		</dependency>
+		<!-- web flow -->
+		<!-- https://mvnrepository.com/artifact/org.springframework.webflow/spring-webflow -->
+		<dependency>
+			<groupId>org.springframework.webflow</groupId>
+			<artifactId>spring-webflow</artifactId>
+			<version>2.4.6.RELEASE</version>
 		</dependency>
 
 
