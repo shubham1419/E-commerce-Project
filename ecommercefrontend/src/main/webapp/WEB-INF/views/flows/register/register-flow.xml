@@ -7,7 +7,7 @@
 	<var name="user" class="com.shubham.ecommercebackend.dto.User"/>
 	<var name="billing" class="com.shubham.ecommercebackend.dto.Address"/>
    
-   <!-- start state -->
+   <!-- start state --> 
    <view-state id="personal" view="flows/register/signup-personal" model="user">
    <transition on="billing" to="billing" ></transition>
    </view-state>

@@ -9,7 +9,7 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 
 public class FrontCotroller extends AbstractAnnotationConfigDispatcherServletInitializer {
 
-	
+	 
 	private String TMP_FOLDER = "/tmp"; 
     private int MAX_UPLOAD_SIZE = 5 * 1024 * 1024; 
 	

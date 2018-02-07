@@ -16,7 +16,7 @@ import org.springframework.webflow.execution.FlowExecutionListenerAdapter;
 @Configuration
 public class WebFlow extends AbstractFlowConfiguration {
 
-    @Autowired
+    @Autowired 
     private DispatcherConfig webMvcConfig;
     
     @Bean
