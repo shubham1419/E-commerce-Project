@@ -17,7 +17,7 @@ public class FrontCotroller extends AbstractAnnotationConfigDispatcherServletIni
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		
-		return new Class[] {DispatcherConfig.class};
+		return new Class[] {DispatcherConfig.class, WebFlow.class};
 	}
 
 	@Override

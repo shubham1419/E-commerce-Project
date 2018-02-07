@@ -41,11 +41,7 @@
   <body>
 
     <!-- Navigation -->
-	<nav class="navbar navbar-inverse" role="navigation">
-		<div class="container">
-			<a class="navbar-brand" href="${flowExecutionUrl}&_eventId_home">Home</a>
-		</div>
-	</nav>
+	<%@include file="flow-navbar.jsp" %>
 
     <!-- Page Content -->
     <div class="content-height">
