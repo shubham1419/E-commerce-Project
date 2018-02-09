@@ -12,7 +12,7 @@
    
    <!-- start state --> 
    <view-state id="personal" view="flows/register/signup-personal" model="user">
-   <transition on="billing" to="billing" ></transition>
+   <transition on="billing" to="validate" ></transition>
    <on-exit>
    	<evaluate expression="registerHandler.addUser(flowScope.registerModel,user)"></evaluate>
     </on-exit>
@@ -32,10 +32,16 @@
     <transition on="personal" to="personal" ></transition>
    </view-state>
    
-   <action-state id="submit">
+ <action-state id="submit">
    	<evaluate expression="registerHandler.saveAll(flowScope.registerModel)"></evaluate>
    	    <transition on="success" to="success" ></transition>
    	
+   </action-state>
+
+   <action-state id="validate">
+   	<evaluate expression="registerHandler.validateUser(user, messageContext)"></evaluate>
+   	    <transition on="success" to="billing" ></transition>
+   	     <transition on="failure" to="personal" ></transition>	
    </action-state>
    
    <!-- end state -->

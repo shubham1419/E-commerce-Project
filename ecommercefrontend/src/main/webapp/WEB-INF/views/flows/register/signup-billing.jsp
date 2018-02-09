@@ -1,6 +1,6 @@
 <%@include file="../shared/flow-header.jsp"%>
 
-<div class="container">
+
  
 	<%@taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 	<div class="container">
@@ -90,5 +90,5 @@
 			</div>
 		</div>
 	</div>
-</div>
+
 <%@include file="../shared/flow-footer.jsp"%>
