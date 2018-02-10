@@ -103,13 +103,12 @@ public class MainController {
 	}
 	
 	
-	/*for form check*/
-	@RequestMapping(value={"/form"})
+	/*for login by spring security*/
+	@RequestMapping(value={"/login"})
 	public ModelAndView form()
 	{
-		ModelAndView mv = new ModelAndView("index");
-		mv.addObject("title","FOrm");
-		mv.addObject("userClickForm",true);
+		ModelAndView mv = new ModelAndView("login");
+		mv.addObject("title","Login");
 		return mv;
 	}
 	

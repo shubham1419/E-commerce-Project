@@ -312,4 +312,40 @@ $(function() {
 	
 	
 	//-------
+	 
+	 //validation for login form
+	 
+	 
+	// Category form validation
+
+		
+	 $("#loginForm").validate({
+	        rules: {
+	        	username : {
+					required : true,
+					email :true 
+						},
+				password : {
+					required : true
+				}
+	        },
+	        messages : {
+	        	username : {
+				required : "Please Enter Valid Username",
+				email:"Please Enter Valid Email",
+				
+			},
+			password : {
+				required : "Please Enter Password"
+			}
+
+			},
+			errorElement: 'em',
+			errorPlacement: function(error, element)
+			{
+				error.addClass('help-block');
+				//add error element after input
+				error.insertAfter(element);
+			}
+	    });
 });
