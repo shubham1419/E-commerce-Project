@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.shubham.ecommercebackend.dao.CategoryDao;
@@ -102,15 +103,31 @@ public class MainController {
 		return mv;
 	}
 	
+	@RequestMapping(value={"/access-denied"})
+	public ModelAndView accessDenied()
+	{
+		ModelAndView mv = new ModelAndView("error");
+		mv.addObject("errorTitle","403 Access Denied");
+		mv.addObject("errorDescription","You Are Not Auhorized User!...");
+		return mv;
+	}
+	
 	
 	/*for login by spring security*/
 	@RequestMapping(value={"/login"})
-	public ModelAndView form()
+	public ModelAndView form(@RequestParam(value= "error", required=false)String error)
 	{
 		ModelAndView mv = new ModelAndView("login");
+		if(error!=null)
+		{
+			mv.addObject("message","Invalid Username And Password!..");		
+			mv.addObject("mclass", "danger");
+		}
 		mv.addObject("title","Login");
 		return mv;
 	}
+	
+	/*for access denied spring security*/
 	
 	//difference in reqparam & pathvar
 	//by using RequestParam

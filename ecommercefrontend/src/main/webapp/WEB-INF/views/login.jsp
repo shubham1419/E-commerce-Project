@@ -55,6 +55,18 @@
 	<!-- Page Content -->
 	<div class="content-height">
 
+<s:if test="${not empty message}">
+		<div class="row">
+			<div class="col-md-12 col-xs-12">
+				<div class="alert alert-${mclass} alert-dismissible">
+					<button type="button" class="close" data-dismiss="alert">
+						&times;</button>${message}
+				</div>
+			</div>
+		</div>
+	</s:if>
+
+
 		<form action="${contextRoot}/login" method="POST"
 			class="form-horizontal" id="loginForm">
 			<div class="form-group">
@@ -78,6 +90,7 @@
 				
 				<div class="col-md-8">
 					<input type="submit" name="Login" class="form-control" />
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 				</div>
 			</div>
 

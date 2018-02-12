@@ -19,22 +19,126 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	  private DataSource dataSource;
+
+
+@SuppressWarnings("deprecation")
+@Bean
+public static NoOpPasswordEncoder passwordEncoder() {
+return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
+}
 	
+
+/*@Override
+public void configure(AuthenticationManagerBuilder builder)
+        throws Exception {
+    builder.jdbcAuthentication()
+           .dataSource(dataSource)
+           .withDefaultSchema()
+           .withUser("admin@admin.com").password("12345").roles("ADMIN")
+           .and()
+           .withUser("sh@gmail.com").password("12345").roles("USER");
+}
+*/
+
+
+	/*@Autowired
+	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+		auth.jdbcAuthentication().dataSource(dataSource)
+				.usersByUsernameQuery("select email, password, enabled from user_detail where email=?")
+				.authoritiesByUsernameQuery("select email,role from user_detail where email=?");
+	}*/
 	
-	@SuppressWarnings("deprecation")
-	@Bean
-	public static NoOpPasswordEncoder passwordEncoder() {
-	return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
+
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+	    auth
+	        .inMemoryAuthentication()
+	            .withUser("admin@admin.com").password("admin").roles("USER");
+	
+	  /*auth.jdbcAuthentication().dataSource(dataSource)
+	  .usersByUsernameQuery("select email, password, enabled from user_detail where email=?")
+	  .authoritiesByUsernameQuery("select email,role from user_detail where email=?");
+		*/
 	}
+	
+	@Override
+	  protected void configure(HttpSecurity http) throws Exception {
+
+		http.authorizeRequests()
+		/*for admin*/
+		.antMatchers("/admin/**").access("hasAuthority('ADMIN')")
+		/*for users*/
+		.antMatchers("/cart/**").access("hasAuthority('USER'))")
+		/*for all*/
+		.antMatchers("/**").permitAll()
+		.and().formLogin()
+		.and()
+	    .exceptionHandling().accessDeniedPage("/access-denied");
+	   
+	  }
+ 
+	/*@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests().antMatchers("/admin").hasRole("ADMIN")
+				.anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and().logout()
+				.permitAll();
+		http.exceptionHandling().accessDeniedPage("/403");
+	}*/
+	
+	
+	
+	
+	
+	
+	
 	
 	/*@Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
             .inMemoryAuthentication()
-                .withUser("admin").password("admin").roles("USER");
+                .withUser("admin@admin.com").password("admin").roles("USER");
+		
+		  auth.jdbcAuthentication().dataSource(dataSource)
+          .usersByUsernameQuery("select email, password, enabled from user_detail where email=?")
+          .authoritiesByUsernameQuery("select email,role from user_detail where email=?");
+		
     }*/
+	
+	
+/*	 @Override
+	  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
+	    auth.jdbcAuthentication().dataSource(dataSource)
+	        .usersByUsernameQuery("select email, password, enabled"
+	            + " from user_detail where email=?")
+	        .authoritiesByUsernameQuery("select email, role "
+	            + " from user_detail where email=?");
+	        
+	  }
+	 
+	 
+	 @Override
+	  protected void configure(HttpSecurity http) throws Exception {
+
+	    http.authorizeRequests().anyRequest().hasAnyRole("ADMIN", "USER")
+	    .and()
+	    .httpBasic(); // Authenticate users with HTTP basic authentication
+	  }*/
+	
+	 
+	
+/*	@Override
+	  protected void configure(HttpSecurity http) throws Exception {
+
+	    http.authorizeRequests().anyRequest().hasAnyRole("ADMIN", "USER")
+	    .and().formLogin()
+		.loginPage("/login") 
+		.permitAll();
+	   
+	  }
+	*/
      
-    @Override
+    /*@Override
     protected void configure(HttpSecurity http) throws Exception {
    
       http.authorizeRequests()
@@ -43,8 +147,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.loginPage("/login") 
 		.permitAll(); 
        
-      http.csrf().disable();
-    }  
+      //http.csrf().disable();
+    }  */
     
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -53,16 +157,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/resources/**");
     }
     
-    @Override
+/*    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
       auth.jdbcAuthentication().dataSource(dataSource)
-          .usersByUsernameQuery("select email, password, enabled"
-              + " from user_detail where email=?")
-          .authoritiesByUsernameQuery("select email,role "
-              + "from user_detail where email=?");
+          .usersByUsernameQuery("select email, password, enabled from user_detail where email=?")
+          .authoritiesByUsernameQuery("select email,role from user_detail where email=?");
     }
-
+*/
    /* @Override
     protected void configure(HttpSecurity http) throws Exception {
 
