@@ -1,3 +1,4 @@
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <div class="container">
 	<div class="row">
 		<div class="col-lg-12">
@@ -37,18 +38,25 @@
 					<h5>Qty. ${product.quantity}</h5>
 				</s:otherwise>
 			</s:choose>
-
-			<s:choose>
-				<s:when test="${product.quantity < 1 }">
-					<a href="javascriptvoid(0)" class="btn btn-success disabled"><strike><i
-							class="fa fa-shopping-cart" aria-hidden="true"> Add To Cart</i></strike></a>
-				</s:when>
-				<s:otherwise>
-					<a href="${contextRoot}/cart/add/${product.id}/product"
-						class="btn btn-success"><i class="fa fa-shopping-cart"
-						aria-hidden="true"> Add To Cart</i></a>
-				</s:otherwise>
-			</s:choose>
+			<security:authorize access="hasAuthority('USER')">
+				<s:choose>
+					<s:when test="${product.quantity < 1 }">
+						<a href="javascriptvoid(0)" class="btn btn-success disabled"><strike><i
+								class="fa fa-shopping-cart" aria-hidden="true"> Add To Cart</i></strike></a>
+					</s:when>
+					<s:otherwise>
+						<a href="${contextRoot}/cart/add/${product.id}/product"
+							class="btn btn-success"><i class="fa fa-shopping-cart"
+							aria-hidden="true"> Add To Cart</i></a>
+					</s:otherwise>
+				</s:choose>
+			</security:authorize>
+			<security:authorize access="hasAuthority('ADMIN')">
+				<a href="${contextRoot}/manage/${product.id}/product"
+							class="btn btn-success"><i class="fa fa-pencil"
+							aria-hidden="true">Edit</i></a>
+			</security:authorize>
+			
 			<a href="${contextRoot}/all/products" class="btn btn-success"><i
 				class="fa fa-arrow-left" aria-hidden="true"> Back</i></a>
 		</div>

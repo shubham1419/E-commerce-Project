@@ -32,6 +32,7 @@
 
 			<div class="row">
 				<div class="col-xs-12 col-md-12 col-lg-12">
+				<div class="table-responsive">
 					<table id="productTable" class="table table-stripe table-bordered">
 						<thead>
 							<tr>
@@ -55,6 +56,7 @@
 							</tr>
 						</tfoot>
 					</table>
+					</div>
 				</div>
 			</div>
 		</div>

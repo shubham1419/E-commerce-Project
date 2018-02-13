@@ -98,14 +98,28 @@ $(function() {
 											+ data
 											+ '/products" class= "btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></a>&#160;';
 
-									if (row.quantity < 1) {
-										str += '<a href="javascriptscript(void)" class= "btn btn-success disabled"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>';
-									} else {
+									
+									if(userRole=='ADMIN'){
 										str += '<a href="'
-												+ window.contextRoot
-												+ '/cart/add/'
-												+ data
-												+ '/products" class= "btn btn-success"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>';
+											+ window.contextRoot
+											+ '/manage/'
+											+ data
+											+ '/products" class= "btn btn-success"><i class="fa fa-pencil" aria-hidden="true"></i></a>';
+								
+										
+									}	
+									
+									else{
+										if (row.quantity < 1) {
+											str += '<a href="javascriptscript(void)" class= "btn btn-success disabled"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>';
+										} else {
+											
+												str += '<a href="'
+														+ window.contextRoot
+														+ '/cart/add/'
+														+ data
+														+ '/products" class= "btn btn-success"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>';
+											}
 									}
 
 									return str;

@@ -3,6 +3,7 @@ package com.shubham.ecommercefrontend.handler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.binding.message.MessageBuilder;
 import org.springframework.binding.message.MessageContext;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.shubham.ecommercebackend.dao.UserDao;
@@ -16,6 +17,9 @@ public class RegisterHandler {
 	
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	public RegisterModel init()
 	{
@@ -47,6 +51,9 @@ public class RegisterHandler {
 			 cart.setUser(user);
 			 user.setCart(cart);
 		}
+		
+		//encode password
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		
 		//save user
 		userDao.addUser(user);

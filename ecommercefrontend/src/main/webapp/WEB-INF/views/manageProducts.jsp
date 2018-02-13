@@ -129,7 +129,7 @@
 	 	
 	 	<div class="col-md-12">
 	 		<div style="overflow:auto">
-	 		
+	 		<div class="table-responsive">
 	 		<table id="adminProductsTable" class="table table-condensed table-bordered">
 							
 				<thead>					
@@ -160,7 +160,7 @@
 				
 							
 			</table>
-	 		
+	 		</div>
 	 		</div>
 	 			
 	 	</div>

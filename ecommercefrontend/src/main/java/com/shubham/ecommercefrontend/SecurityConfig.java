@@ -26,7 +26,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 public static NoOpPasswordEncoder passwordEncoder() {
 return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
 }
-	
+
+
+/*@Bean
+public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+}*/
 
 /*@Override
 public void configure(AuthenticationManagerBuilder builder)
@@ -53,7 +58,7 @@ public void configure(AuthenticationManagerBuilder builder)
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 	    auth
 	        .inMemoryAuthentication()
-	            .withUser("admin@admin.com").password("admin").roles("USER");
+	            .withUser("admin@admin.com").password("admin").roles("ADMIN");
 	
 	  /*auth.jdbcAuthentication().dataSource(dataSource)
 	  .usersByUsernameQuery("select email, password, enabled from user_detail where email=?")
@@ -66,9 +71,9 @@ public void configure(AuthenticationManagerBuilder builder)
 
 		http.authorizeRequests()
 		/*for admin*/
-		.antMatchers("/admin/**").access("hasAuthority('ADMIN')")
+		.antMatchers("/manage/**").hasAuthority("ADMIN")
 		/*for users*/
-		.antMatchers("/cart/**").access("hasAuthority('USER'))")
+		.antMatchers("/cart/**").hasAuthority("USER")
 		/*for all*/
 		.antMatchers("/**").permitAll()
 		.and().formLogin()
